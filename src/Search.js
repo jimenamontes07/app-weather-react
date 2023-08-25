@@ -6,6 +6,71 @@ import Weather from "./Weather";
 import "./App.css";
 
 export default function Search() {
+
+
+  //date 
+
+
+
+  let [date , setDate] = useState(null);
+  let [day , setDay] = useState(null);
+  let [fullday , setFullday] = useState(null);
+
+
+ 
+  
+
+  let days = [
+      "Monday",
+      "Tuesday",
+      "Wednesday",
+      "Thursday",
+      "Friday",
+      "Saturday",
+      "Sunday",
+    ];
+  
+
+  function loadDate() {
+      let now = new Date();
+      console.log(now);
+      let fullday = now.getDay();
+      let day = days[now.getDay()];
+      let hours = now.getHours();
+      let min = now.getMinutes();
+      if (min < 10) {
+        min = `0${min}`;
+      }
+      let time = `${hours}:${min}`;
+    
+      setFullday (fullday);
+      setDate  (time);
+      setDay(day);
+
+    }
+
+ 
+
+    MyComponent();
+
+    function MyComponent() {
+       useEffect(() => {
+          loadData();
+       }, []); // Pass an empty array to only call the function once on mount.
+       
+       function loadData() {
+    
+        loadDate();
+        console.log(date);
+          // Fetch data or perform other loading logic here
+       }
+       
+       // ... component render logic
+    }
+
+
+
+
   let [city, setCity] = useState("London");
   let [submit, setSubmit] = useState("start");
   let[newCity, setNewcity] = useState("London");
@@ -127,6 +192,7 @@ let forecast = [
     axios.get(url).then(getData);
     setNewcity(city);
     setSubmit(true);
+    loadDate();
 
   }
 
@@ -150,7 +216,7 @@ let forecast = [
         <button type="submit" className="btn btn-primary" >Search</button>
       </form>
 
-      <Weather  forecast = {forecast} city={newCity} submit={submit} temp={temp} desc= {desc} hum = {hum} wind = {wind} emoji = {emoji}/>
+      <Weather day = {day} fullday = {fullday} date = {date} forecast = {forecast} city={newCity} submit={submit} temp={temp} desc= {desc} hum = {hum} wind = {wind} emoji = {emoji}/>
     </div>
   );
 }
