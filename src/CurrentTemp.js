@@ -1,5 +1,3 @@
-import React, { useState} from "react";
-import { useEffect } from "react";
 
 export default function CurrentTemp(props){
 
@@ -33,12 +31,12 @@ return(
                 <img className="icon" src={props.emoji} alt= {props.desc} />{" "} 
                 <span className="Temp">{Math.round(props.temp)}</span>
                 <span className="buttonsCelFar">
-                <button className="btn btn-light" id="toCelcius" onClick={toCelcius}>
+                <button className="btn btn-light" id="toCelcius" >
                 {" "}
                 °C{" "}
                 </button>
 
-                <button className="btn btn-light" id="toFarenheit"  onClick={toFarhenheit}>
+                <button className="btn btn-light" id="toFarenheit"  >
                 {" "}
                 °F{" "}
                  </button>
