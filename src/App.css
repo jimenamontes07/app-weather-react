@@ -1,0 +1,138 @@
+
+
+:root{
+  --main-grey: rgb(206, 206, 206);
+  --background-grey: rgba(240, 240, 240, 0.425);
+  --box-shadow: rgba(149, 157, 165, 0.1) 0px 0px 24px;
+  --text-color-grey:rgb(120, 120, 120);
+  --font-family:inherit;
+
+}
+
+
+
+.App{
+  border: solid var(--main-grey) 1px;
+  border-radius:5px;
+  box-shadow: var(--box-shadow);
+  margin:20px;
+  padding: 10px;
+}
+
+.Search {
+  width: 100%;
+  margin-top: 10px;
+}
+
+.Search form input {
+  font-size: 20px;
+  border-radius: 5px;
+  border: solid var(--main-grey) 1px;
+  height: 100%;
+  padding: 10px;
+  width: 80%;
+}
+
+.Search form {
+  display: flex;
+  justify-content: space-evenly;
+  height: 30px;
+  width: 100%;
+}
+
+.Search button {
+  height: 30px;
+  width: 15%;
+  padding:0px;
+  
+}
+
+.Weather h1{
+
+  font-family:sans-serif;
+  color: var(--text-color-grey);
+  margin-left: 2%;
+  margin-top:10px;
+}
+
+.Weather .info{
+  color: var(--text-color-grey);
+  font-family:sans-serif;
+  margin-left: 2%;
+}
+
+
+
+
+.CurrentTemp button {
+  width: 25px;
+  height: 25px;
+  font-size: 13px;
+  padding: 1px;
+  margin: 5px;
+  margin-top: 15px;
+  vertical-align: top;
+  text-decoration: underline;
+}
+
+.CurrentTemp .Temp {
+  font-family:sans-serif;
+  font-size: 90px;
+  margin-left: 5%;
+
+}
+
+
+
+.CurrentTemp .icon{
+  width:100px ;
+  vertical-align: middle;
+  margin-bottom:40px;
+  padding: 0px;
+}
+
+.CurrentTemp .HumAndWind {
+  
+  display: flex;
+  flex-direction: column;
+  justify-content: space-evenly;
+
+  
+ 
+}
+
+.mainTemp{
+  margin-top:30px;
+  display: flex;
+  flex-direction: column;
+  justify-content: space-evenly;
+}
+
+
+.Forecast .day{
+  text-align: center;
+  color: var(--text-color-grey)
+
+}
+.Forecast .img{
+  display: flex;
+  justify-content: center;
+}
+
+.Forecast .dayTemp{
+  text-align: center;;
+}
+
+.Forecast .row{
+  margin-top:40px;
+  margin-bottom:40px;
+  display: flex;
+  justify-content: space-around;
+}
+.Forecast .col-sm-2{
+  border: solid var(--background-grey) 1px;
+  box-shadow: var(--box-shadow);
+  height:fit-content;
+  border-radius: 5px;
+  padding:20px;
+}
