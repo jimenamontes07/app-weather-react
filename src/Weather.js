@@ -1,5 +1,5 @@
-import React, {useState}  from "react";
-import {useEffect} from "react";
+import React  from "react";
+
 
 
 import CurrentTemp from "./CurrentTemp";
