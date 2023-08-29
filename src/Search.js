@@ -173,6 +173,8 @@ let forecast = [
 
     setReady(true);
 
+    setNewcity(response.data.name);
+
     console.log(response);
 
   }
@@ -244,7 +246,7 @@ let forecast = [
     let url = `https://api.openweathermap.org/data/2.5/weather?q=${city}&appid=${APIKEY}&units=metric`;
     //setNewcity(city);
     axios.get(url).then(getData);
-    setNewcity(city);
+   
     loadDate();
    
   }
