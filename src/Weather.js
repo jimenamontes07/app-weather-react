@@ -3,7 +3,7 @@ import React  from "react";
 
 
 import CurrentTemp from "./CurrentTemp";
-import Forecast from "./Forecast";
+/* import Forecast from "./Forecast"; */
 
 export default function Weather(props) {
 
