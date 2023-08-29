@@ -8,7 +8,7 @@ const root = ReactDOM.createRoot(document.getElementById('root'));
 root.render(
   <React.StrictMode>
     <App />
-    <div className='project'><a href='https://github.com/jimenamontes07/reactweather.git'>Open-source code</a> <span>by Jimena Montes</span></div>
+    <div className='project'><span>This project is an </span><a href='https://github.com/jimenamontes07/reactweather.git'>Open-source code</a> <span>created by Jimena Montes and hosted on </span><a href='https://app.netlify.com/sites/jocular-blini-629cf7/overview'>Netlify</a></div>
   </React.StrictMode>
 );
 
