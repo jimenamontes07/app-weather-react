@@ -23,7 +23,7 @@ let EmojiSrc = `http://openweathermap.org/img/wn/${props.emoji}@2x.png`;
         <div className="info">{props.desc}</div>
 
       <CurrentTemp submit = {props.submit} city = {props.city} desc= {props.desc}  temp = {props.temp} emoji = {EmojiSrc} hum = {props.hum} wind = {props.wind}/>
-      <Forecast forecast = {props.forecast}/>
+      {/*<Forecast forecast = {props.forecast}/>*/}
       </div>
     );
    

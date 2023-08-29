@@ -35,7 +35,7 @@ export default function Search() {
   function loadDate() {
       let now = new Date();
       console.log(now);
-      let fullday = now.getDay();
+      let fullday = now.getDate();
       let day = days[now.getDay()];
       let hours = now.getHours();
       let min = now.getMinutes();
@@ -47,6 +47,7 @@ export default function Search() {
       setFullday (fullday);
       setDate  (time);
       setDay(day);
+      
 
     }
 
@@ -62,7 +63,7 @@ export default function Search() {
        function loadData() {
     
         loadDate();
-        console.log(date);
+        
           // Fetch data or perform other loading logic here
        }
        
