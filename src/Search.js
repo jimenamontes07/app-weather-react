@@ -17,21 +17,16 @@ export default function Search() {
 
   let [submit, setSubmit] = useState("start");
 
-  let [date , setDate] = useState(null);
-  let [day , setDay] = useState(null);
-  let [fullday , setFullday] = useState(null);
 
 
-  let [lon , setLon] = useState(null);
-  let [lat , setLat] = useState(null);
+  let [date , setDate ] = useState([]);
 
-  const APIKEY = `be81f193e065bf5feb2d944c7336968b`;
+  const APIKEY = `4da2e8bf3a200c5adda75dotf32bef74`;
 
 
 
 
   let [city, setCity] = useState("London");
-  let[newCity, setNewcity] = useState("London");
 
 
  
@@ -61,11 +56,13 @@ export default function Search() {
       }
       let time = `${hours}:${min}`;
     
-      setFullday (fullday);
-      setDate  (time);
-      setDay(day);
-      
+      setDate([
+      (fullday),
+       (time),
+     (day)
+      ])
 
+      
     }
 
  
@@ -95,64 +92,18 @@ export default function Search() {
 
 
 //for Current Temp
-  let [desc, setDesc] = useState(null);
-  let [temp, setTemp] = useState(null);
-  let [hum, setHum] = useState(null);
-  let [wind, setWind] = useState(null);
-  let [emoji, setEmoji] = useState(null);
+
+let [currentWeatherData , setCurrentWeatherData] = useState({});
+
 
 //for forecast
 
+let[forecast , setForecast ] = useState({});
 
-let [temp1 , setTemp1] = useState(null);
-let [temp2 , setTemp2] = useState(null);
-let [temp3 , setTemp3] = useState(null);
-let [temp4 , setTemp4] = useState(null);
-let [temp5 , setTemp5] = useState(null);
-
-let [emoji1 , setEmoji1] = useState(null);
-let [emoji2 , setEmoji2] = useState(null);
-let [emoji3 , setEmoji3] = useState(null);
-let [emoji4 , setEmoji4] = useState(null);
-let [emoji5 , setEmoji5] = useState(null);
-
-let [date1 , setDate1] = useState(null);
-let [date2 , setDate2] = useState(null);
-let [date3 , setDate3] = useState(null);
-let [date4 , setDate4] = useState(null);
-let [date5 , setDate5] = useState(null);
 
 //forecast array of objects 
 
-let forecast = [
-    {
-       date: date1,
-       temp:temp1,
-       emoji:emoji1
 
-    },
-    {
-       date: date2,
-       temp:temp2,
-       emoji:emoji2
-    },
-    {
-        date: date3,
-        temp:temp3,
-        emoji:emoji3
-    
-    },
-    {
-        date: date4,
-        temp:temp4,
-        emoji:emoji4
-    },
-    {
-        date: date5,
-        temp:temp5,
-        emoji:emoji5
-    }
-]
 
 
 //get current weather response and call get forecast function
@@ -160,20 +111,22 @@ let forecast = [
   function getData(response) {
 
 
+    setCurrentWeatherData({
+      city:response.data.city,
+      desc :response.data.condition.description,
+      temp : response.data.temperature.current,
+      hum : response.data.temperature.humidity,
+      wind :response.data.wind.speed ,
+      icon:response.data.condition.icon_url,
+      lon:response.data.coordinates.longiude ,
+      lat:response.data.coordinates.latitude
+    })
 
-    setDesc(response.data.weather[0].description);
-    setTemp(response.data.main.temp);
-    setHum(response.data.main.humidity);
-    setWind(response.data.wind.speed);
-    setEmoji(response.data.weather[0].icon);
 
 
-    setLon(response.data.coord.lon );
-    setLat(response.data.coord.lat);
-
+    console.log(currentWeatherData);
     setReady(true);
 
-    setNewcity(response.data.name);
 
     console.log(response);
 
@@ -183,25 +136,36 @@ let forecast = [
   //get forecast response and set variables
 
   function getForecast(response){
-    setTemp1(response.data.list[5].main.temp);
-    setEmoji1(response.data.list[5].weather[0].icon);
-    setDate1(response.data.list[5].dt);
 
-    setTemp2(response.data.list[13].main.temp);
-    setEmoji2(response.data.list[13].weather[0].icon);
-    setDate2(response.data.list[13].dt);
-
-    setTemp3(response.data.list[21].main.temp);
-    setEmoji3(response.data.list[21].weather[0].icon);
-    setDate3(response.data.list[21].dt);
-
-    setTemp4(response.data.list[29].main.temp);
-    setEmoji4(response.data.list[29].weather[0].icon);
-    setDate4(response.data.list[29].dt);
-
-    setTemp5(response.data.list[37].main.temp);
-    setEmoji5(response.data.list[37].weather[0].icon);
-    setDate5(response.data.list[37].dt);
+    setForecast (
+      {
+         date: response.data.daily[0].time ,
+         temp: response.data.daily[0].temperature.day,
+         emoji:response.data.daily[0].condition.icon_url
+  
+      },
+      {
+         date: response.data.daily[1].time ,
+         temp:response.data.daily[1].temperature.day,
+         emoji:response.data.daily[1].condition.icon_url
+      },
+      {
+          date: response.data.daily[2].time ,
+          temp:response.data.daily[2].temperature.day,
+          emoji:response.data.daily[2].condition.icon_url
+      
+      },
+      {
+          date: response.data.daily[3].time ,
+          temp:response.data.daily[3].temperature.day,
+          emoji:response.data.daily[3].condition.icon_url
+      },
+      {
+          date: response.data.daily[4].time ,
+          temp:response.data.daily[4].temperature.day,
+          emoji:response.data.daily[4].condition.icon_url
+      }
+    )
     
 
     setForecastReady(true);
@@ -229,7 +193,8 @@ let forecast = [
     event.preventDefault();
   
       makeCall();
-      getForecastData(lon, lat);
+   
+
     
     
   }
@@ -243,21 +208,25 @@ let forecast = [
 
   function makeCall(){
 
-    let url = `https://api.openweathermap.org/data/2.5/weather?q=${city}&appid=${APIKEY}&units=metric`;
-    //setNewcity(city);
-    axios.get(url).then(getData);
-   
+    getCurrentWeather();
+    getForecastData();
     loadDate();
    
   }
 
 
+  function getCurrentWeather(){
+    let url = `https://api.shecodes.io/weather/v1/current?query=${city}&key=${APIKEY}&units=metric`;
+    //setNewcity(city);
+    axios.get(url).then(getData);
+  }
+
   //get forecast data when searched pressed
   
-  function getForecastData(lon , lat){
+  function getForecastData(){
     if (submit){ 
-    let forecastUrl = `https://api.openweathermap.org/data/2.5/forecast?lat=${lat}&lon=${lon}&appid=${APIKEY}&units=metric`;
-    setNewcity(city);
+    let forecastUrl = `https://api.shecodes.io/weather/v1/forecast?query=${city}&key=${APIKEY}&units=metric`;
+
     axios.get(forecastUrl).then(getForecast);
    
   }
@@ -276,7 +245,7 @@ let forecast = [
         <button type="submit" className="btn btn-primary" >Search</button>
       </form>
 
-      <Weather day = {day} fullday = {fullday} date = {date} forecast = {forecast} city={newCity} submit={submit} temp={temp} desc= {desc} hum = {hum} wind = {wind} emoji = {emoji}/>
+      <Weather date = {date} forecast = {forecast} submit={submit} currentWeather = {currentWeatherData}/>
     </div>
 
 
