@@ -9,18 +9,34 @@ import "./App.css";
 export default function Search() {
 
 
-  //date 
+  //variables
 
 
+  let [ready, setReady] = useState (false);
+  let [forecastReady , setForecastReady] = useState(false);
+
+  let [submit, setSubmit] = useState("start");
 
   let [date , setDate] = useState(null);
   let [day , setDay] = useState(null);
   let [fullday , setFullday] = useState(null);
 
 
+  let [lon , setLon] = useState(null);
+  let [lat , setLat] = useState(null);
+
+  const APIKEY = `be81f193e065bf5feb2d944c7336968b`;
+
+
+
+
+  let [city, setCity] = useState("London");
+  let[newCity, setNewcity] = useState("London");
+
+
  
   
-
+//date arrays
   let days = [
       "Monday",
       "Tuesday",
@@ -32,9 +48,10 @@ export default function Search() {
     ];
   
 
+
+  //date function
   function loadDate() {
       let now = new Date();
-      console.log(now);
       let fullday = now.getDate();
       let day = days[now.getDay()];
       let hours = now.getHours();
@@ -53,6 +70,7 @@ export default function Search() {
 
  
 
+    //on window load
     MyComponent();
 
     function MyComponent() {
@@ -61,9 +79,12 @@ export default function Search() {
        }, []); // Pass an empty array to only call the function once on mount.
        
        function loadData() {
-    
-        loadDate();
-        
+  
+  
+        if (submit === "start"){
+          loadDate();
+          makeCall();
+        }
           // Fetch data or perform other loading logic here
        }
        
@@ -72,10 +93,6 @@ export default function Search() {
 
 
 
-
-  let [city, setCity] = useState("London");
-  let [submit, setSubmit] = useState("start");
-  let[newCity, setNewcity] = useState("London");
 
 //for Current Temp
   let [desc, setDesc] = useState(null);
@@ -104,6 +121,8 @@ let [date2 , setDate2] = useState(null);
 let [date3 , setDate3] = useState(null);
 let [date4 , setDate4] = useState(null);
 let [date5 , setDate5] = useState(null);
+
+//forecast array of objects 
 
 let forecast = [
     {
@@ -136,7 +155,12 @@ let forecast = [
 ]
 
 
+//get current weather response and call get forecast function
+
   function getData(response) {
+
+
+
     setDesc(response.data.weather[0].description);
     setTemp(response.data.main.temp);
     setHum(response.data.main.humidity);
@@ -144,9 +168,17 @@ let forecast = [
     setEmoji(response.data.weather[0].icon);
 
 
-    getForecastData(response.data.coord.lon , response.data.coord.lat);
+    setLon(response.data.coord.lon );
+    setLat(response.data.coord.lat);
+
+    setReady(true);
+
+    console.log(response);
 
   }
+
+
+  //get forecast response and set variables
 
   function getForecast(response){
     setTemp1(response.data.list[5].main.temp);
@@ -169,45 +201,69 @@ let forecast = [
     setEmoji5(response.data.list[37].weather[0].icon);
     setDate5(response.data.list[37].dt);
     
+
+    setForecastReady(true);
   }
 
 
+
+  //change value of city when typed
   function changeCity(event) {
     event.preventDefault();
     setCity(event.target.value);
     setSubmit(false);
-  }
-
-  const APIKEY = `be81f193e065bf5feb2d944c7336968b`;
-
-
-
-  if (submit === "start"){
-    let url = `https://api.openweathermap.org/data/2.5/weather?q=${city}&appid=${APIKEY}&units=metric`;
-    //setNewcity(city);
-    axios.get(url).then(getData);
-  }
-
-  function searchCity(event) {
-    event.preventDefault();
-    let url = `https://api.openweathermap.org/data/2.5/weather?q=${city}&appid=${APIKEY}&units=metric`;
-    axios.get(url).then(getData);
-    setNewcity(city);
-    setSubmit(true);
-    loadDate();
-
-  }
-
-  function getForecastData(lon , lat){
-    let forecastUrl = `https://api.openweathermap.org/data/2.5/forecast?lat=${lat}&lon=${lon}&appid=${APIKEY}&units=metric`;
-    setNewcity(city);
-    axios.get(forecastUrl).then(getForecast);
+      
    
   }
 
 
 
-  return (
+
+
+
+//if search pressed search city
+  function searchCity(event) {
+    setSubmit(true);
+    event.preventDefault();
+  
+      makeCall();
+      getForecastData(lon, lat);
+    
+    
+  }
+
+
+//make call when submit
+
+
+
+//make api call when searched button pressed
+
+  function makeCall(){
+
+    let url = `https://api.openweathermap.org/data/2.5/weather?q=${city}&appid=${APIKEY}&units=metric`;
+    //setNewcity(city);
+    axios.get(url).then(getData);
+    setNewcity(city);
+    loadDate();
+   
+  }
+
+
+  //get forecast data when searched pressed
+  
+  function getForecastData(lon , lat){
+    if (submit){ 
+    let forecastUrl = `https://api.openweathermap.org/data/2.5/forecast?lat=${lat}&lon=${lon}&appid=${APIKEY}&units=metric`;
+    setNewcity(city);
+    axios.get(forecastUrl).then(getForecast);
+   
+  }
+}
+
+
+
+  if (ready){return (
     <div className="Search">
       <form onSubmit={searchCity}>
         <input
@@ -220,5 +276,23 @@ let forecast = [
 
       <Weather day = {day} fullday = {fullday} date = {date} forecast = {forecast} city={newCity} submit={submit} temp={temp} desc= {desc} hum = {hum} wind = {wind} emoji = {emoji}/>
     </div>
-  );
+
+
+  )}else {
+    return(
+    <div className="Search">
+      <form onSubmit={searchCity}>
+        <input
+          type="search"
+          placeholder="Type a city..."
+          onChange={changeCity}
+        ></input>
+        <button type="submit" className="btn btn-primary" >Search</button>
+      </form>
+
+      <div className="text-center">Loading...</div>
+
+    </div>
+    )
+  }
 }
