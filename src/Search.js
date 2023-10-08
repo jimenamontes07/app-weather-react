@@ -98,7 +98,7 @@ let [currentWeatherData , setCurrentWeatherData] = useState({});
 
 //for forecast
 
-let[forecast , setForecast ] = useState({});
+//let[forecast , setForecast ] = useState({});
 
 
 //forecast array of objects 
@@ -135,41 +135,41 @@ let[forecast , setForecast ] = useState({});
 
   //get forecast response and set variables
 
-  function getForecast(response){
+  //function getForecast(response){
 
-    setForecast (
-      {
-         date: response.data.daily[0].time ,
-         temp: response.data.daily[0].temperature.day,
-         emoji:response.data.daily[0].condition.icon_url
+    //setForecast (
+      //{
+        // date: response.data.daily[0].time ,
+         //temp: response.data.daily[0].temperature.day,
+       //  emoji:response.data.daily[0].condition.icon_url
   
-      },
-      {
-         date: response.data.daily[1].time ,
-         temp:response.data.daily[1].temperature.day,
-         emoji:response.data.daily[1].condition.icon_url
-      },
-      {
-          date: response.data.daily[2].time ,
-          temp:response.data.daily[2].temperature.day,
-          emoji:response.data.daily[2].condition.icon_url
+      //},
+      //{
+        // date: response.data.daily[1].time ,
+        // temp:response.data.daily[1].temperature.day,
+        // emoji:response.data.daily[1].condition.icon_url
+     // },
+      //{
+      //    date: response.data.daily[2].time ,
+      //    temp:response.data.daily[2].temperature.day,
+      //    emoji:response.data.daily[2].condition.icon_url
       
-      },
-      {
-          date: response.data.daily[3].time ,
-          temp:response.data.daily[3].temperature.day,
-          emoji:response.data.daily[3].condition.icon_url
-      },
-      {
-          date: response.data.daily[4].time ,
-          temp:response.data.daily[4].temperature.day,
-          emoji:response.data.daily[4].condition.icon_url
-      }
-    )
+     // },
+     // {
+         // date: response.data.daily[3].time ,
+        //  temp:response.data.daily[3].temperature.day,
+        //  emoji:response.data.daily[3].condition.icon_url
+      //},
+     // {
+        //  date: response.data.daily[4].time ,
+        //  temp:response.data.daily[4].temperature.day,
+         // emoji:response.data.daily[4].condition.icon_url
+     // }
+    //)
     
 
-    setForecastReady(true);
-  }
+   // setForecastReady(true);
+  //}
 
 
 
@@ -209,7 +209,7 @@ let[forecast , setForecast ] = useState({});
   function makeCall(){
 
     getCurrentWeather();
-    getForecastData();
+   // getForecastData();
     loadDate();
    
   }
@@ -223,14 +223,14 @@ let[forecast , setForecast ] = useState({});
 
   //get forecast data when searched pressed
   
-  function getForecastData(){
-    if (submit){ 
-    let forecastUrl = `https://api.shecodes.io/weather/v1/forecast?query=${city}&key=${APIKEY}&units=metric`;
+  //function getForecastData(){
+    //if (submit){ 
+   // let forecastUrl = `https://api.shecodes.io/weather/v1/forecast?query=${city}&key=${APIKEY}&units=metric`;
 
-    axios.get(forecastUrl).then(getForecast);
+   // axios.get(forecastUrl).then(getForecast);
    
-  }
-}
+  //}
+//}
 
 
 
@@ -244,8 +244,8 @@ let[forecast , setForecast ] = useState({});
         ></input>
         <button type="submit" className="btn btn-primary" >Search</button>
       </form>
-
-      <Weather date = {date} forecast = {forecast} submit={submit} currentWeather = {currentWeatherData}/>
+     
+      <Weather date = {date}  submit={submit} currentWeather = {currentWeatherData}/>
     </div>
 
 
