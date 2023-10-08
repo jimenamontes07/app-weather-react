@@ -13,7 +13,7 @@ export default function Search() {
 
 
   let [ready, setReady] = useState (false);
-  let [forecastReady , setForecastReady] = useState(false);
+  //let [forecastReady , setForecastReady] = useState(false);
 
   let [submit, setSubmit] = useState("start");
 
