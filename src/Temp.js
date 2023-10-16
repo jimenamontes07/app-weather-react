@@ -19,12 +19,14 @@ export default function Temp(props){
   
     function toFarhenheit(event) {
       event.preventDefault();
+      if (celcius === true){
       setCelcius(false);
       setColorC("black");
       setColorF("#0C6EFD");
         let temperature = Math.round(temp * (9 / 5) + 32);
         setTemp(temperature);
       }
+    }
 
     function toCelcius(event) {
         setCelcius(true);

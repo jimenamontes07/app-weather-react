@@ -3,7 +3,7 @@ import React  from "react";
 
 
 import CurrentTemp from "./CurrentTemp";
-//import Forecast from "./Forecast";
+import Forecast from "./Forecast";
 
 export default function Weather(props) {
 
@@ -23,7 +23,7 @@ export default function Weather(props) {
         <div className="info">{props.desc}</div>
 
       <CurrentTemp date = {props.date} submit={props.submit} currentWeather = {props.currentWeather}/>
-      {/*<Forecast forecast = {props.forecast}/>*/}
+      <Forecast forecast = {props.forecast}/>
       </div>
     );
    
